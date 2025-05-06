@@ -1,0 +1,111 @@
+:root{
+    --main-text-color: #020660;
+    --secondary-text-color: #020660;
+    --link-colour: #71a0ec;
+    --background-color: #fdfaab;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+}
+
+body {
+    font-family: 'Barlow', sans-serif;
+}
+
+a {
+    color: var(--main-text-color);
+    text-decoration: none;
+    margin-right: 35px;
+}
+
+/* NAVBAR */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+    height: 80px;
+    padding: 0 50px;
+    font-weight: 800;
+}
+
+nav .left a {
+    font-size: 35px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block; /* Set it here, not on hover! */
+}
+  
+nav .left a:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0px 20px rgb(93, 101, 115);
+}
+
+nav .right a {
+    display: inline-block;
+    font-size: 25px;
+    color: var(--main-text-color);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+  
+nav .right a:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0px 15px rgb(93, 101, 115);
+}
+
+p a {
+    color: var(--link-colour);
+}
+
+/* Hero section */
+
+section.hero {
+    padding: 0 50px;
+    color: var(--secondary-text-color);
+    margin-top: 50px;
+}
+
+section.hero h2{
+    font-size: 50px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 40px ;
+}
+
+section.hero p{
+    font-size: 26px;
+    font-weight: 800;
+    margin-top: 25px;
+    max-width: 650px;
+    margin: auto;
+    text-align: justify;
+    text-transform: lowercase;
+}
+
+.punctuation {
+    color: var(--main-text-color);
+}
+
+/* 
+img {
+    max-width: 400px;
+    border-radius: ;
+} */
+
+
+@media (max-width: 750px) {
+    nav {
+      flex-direction: column; /* stack children vertically */
+    }
+  
+    nav .right {
+      display: block;           
+      margin-top: 10px;       /* space between .left and .right */
+      text-align: center;     /* center the text inside */
+    }
+  }
