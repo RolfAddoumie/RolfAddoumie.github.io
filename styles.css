@@ -37,25 +37,25 @@ nav {
 
 nav .left a {
     font-size: 35px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-block; /* Set it here, not on hover! */
 }
   
 nav .left a:hover {
     transform: scale(1.1);
-    text-shadow: 0 0px 20px rgb(93, 101, 115);
+    text-shadow: 0 0px 20px rgb(159, 162, 166);
 }
 
 nav .right a {
     display: inline-block;
     font-size: 25px;
     color: var(--main-text-color);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-  
+    
 nav .right a:hover {
     transform: scale(1.1);
-    text-shadow: 0 0px 15px rgb(93, 101, 115);
+    text-shadow: 0 0px 15px rgb(159, 162, 166);
 }
 
 p a {
