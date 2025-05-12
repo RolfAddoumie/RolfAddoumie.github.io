@@ -100,12 +100,109 @@ img {
 
 @media (max-width: 750px) {
     nav {
-      flex-direction: column; /* stack children vertically */
+        all: initial;
+        flex-direction: column; /* stack children vertically */
+        font-family: 'Barlow', sans-serif;
+        font-weight: 800;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
     }
-  
-    nav .right {
-      display: block;           
-      margin-top: 10px;       /* space between .left and .right */
-      text-align: center;     /* center the text inside */
+
+    nav .left{
+        display: flex;
+        justify-content: center;
+        position: relative;
+        
+    }
+
+    nav .right{
+        display: flex;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+    }
+    nav a:last-child{
+        margin-right: 0;
+    }
+    nav .left a{
+        margin-right: 0;
+    }
+
+    section.hero {
+        margin-top: 30px;
+    }
+
+    
+    
+  }
+
+  @media (max-width: 620px) {
+    section.hero h2 {
+        font-size: 42px;
+    }   
+  }
+@media (max-width: 560px) {
+    section.hero h2 {
+        font-size: 35px;
+    }   
+
+    section.hero p {
+        font-size: 25px;
+    }
+  }
+
+  @media (max-width: 560px) {
+
+    section.hero p {
+        font-size: 25px;
+    }
+
+    nav .left a{
+        font-size: 30px;
+    }
+    nav .right a{
+        font-size: 23px;
+    }
+  }
+
+  @media (max-width: 530px) {
+    section.hero p {
+        font-size: 23px;
+    }
+  }
+
+  @media (max-width: 490px) {
+    nav .left a{
+        font-size: 28px;
+    }
+    nav .right a{
+        font-size: 20px;
+    }
+    section.hero h2 {
+        font-size: 30px;
+    }  
+    section.hero p {
+        font-size: 22px;
+    }
+  }
+
+  @media (max-width: 415px) {
+    section.hero h2 {
+        font-size: 26px;
+    }  
+    section.hero p {
+        font-size: 20.5px;
+    }
+  }
+
+
+@media (max-width: 375px) {
+    section.hero h2 {
+        font-size: 24px;
+    }
+
+    section.hero p {
+        font-size: 20px;
     }
   }
