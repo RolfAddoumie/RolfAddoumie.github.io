@@ -2,7 +2,7 @@
     --main-text-color: #020660;
     --secondary-text-color: #020660;
     --link-colour: #71a0ec;
-    --background-color: #fdfaab;
+    --background-color: #fffed2;
 
 }
 
@@ -37,8 +37,8 @@ nav {
 
 nav .left a {
     font-size: 35px;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    display: inline-block; /* Set it here, not on hover! */
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
 }
   
 nav .left a:hover {
@@ -81,6 +81,7 @@ section.hero p{
     font-size: 26px;
     font-weight: 800;
     margin-top: 25px;
+    padding-bottom: 15px;
     max-width: 650px;
     margin: auto;
     text-align: justify;
@@ -106,14 +107,13 @@ img {
         font-weight: 800;
         left: 50%;
         transform: translate(-50%, -50%);
-        
     }
 
     nav .left{
         display: flex;
         justify-content: center;
         position: relative;
-        
+        padding-top: 20px;
     }
 
     nav .right{
@@ -173,6 +173,9 @@ img {
   }
 
   @media (max-width: 490px) {
+    nav .left{
+        padding-top: 10px;
+    }
     nav .left a{
         font-size: 28px;
     }
@@ -188,21 +191,32 @@ img {
   }
 
   @media (max-width: 415px) {
+    nav .left a{
+        font-size: 25px;
+    }
+    nav .right a{
+        font-size: 18px;
+    }
+    section.hero{
+        font-size: 26px;
+        margin-top: 15px;
+    }  
     section.hero h2 {
         font-size: 26px;
+        margin-bottom: 20px;
     }  
     section.hero p {
-        font-size: 20.5px;
+        font-size: 18px;
     }
   }
 
 
 @media (max-width: 375px) {
     section.hero h2 {
-        font-size: 24px;
+        font-size: 23px;
     }
 
     section.hero p {
-        font-size: 20px;
+        font-size: 17.5px;
     }
   }
