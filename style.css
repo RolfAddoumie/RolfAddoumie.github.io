@@ -1,0 +1,856 @@
+/* palette: cool ink + paper, with a teal primary and a coral secondary.
+   --accent is for links and interactive things, --accent-2 for emphasis. */
+:root {
+  --bg: #eceee6;
+  --fg: #0d1013;
+  --muted: #54585e;
+  --rule: #e0ddd4;
+  --accent: #1d7a63;
+  --accent-2: #dc7150;
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0d1513;
+  --fg: #f0f4f2;
+  --muted: #a6b1ab;
+  --rule: #212b2e;
+  --accent: #4fcfa5;
+  --accent-2: #f7a183;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1513;
+    --fg: #f0f4f2;
+    --muted: #a6b1ab;
+    --rule: #212b2e;
+    --accent: #4fcfa5;
+    --accent-2: #f7a183;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  /* three soft teal washes — upper left, upper right, and a pool along the
+     bottom — over the flat page colour. fixed, so they don't scroll away. */
+  background:
+    radial-gradient(60rem 38rem at 8% -8%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 68%),
+    radial-gradient(55rem 34rem at 105% 12%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 70%),
+    radial-gradient(70rem 40rem at 50% 108%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%),
+    var(--bg);
+  background-attachment: fixed;
+  position: relative;
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;   /* a scaled-up photo must never widen the page */
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* a whisper of grain over the whole page — keeps the gradients from banding */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* a faint dot grid, fading out towards the bottom so the page ends quietly */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in srgb, var(--accent-2) 55%, transparent) 1.1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+  opacity: 0.4;
+  -webkit-mask-image: radial-gradient(90rem 65rem at 50% 0%, #000 35%, transparent 85%);
+  mask-image: radial-gradient(90rem 65rem at 50% 0%, #000 35%, transparent 85%);
+}
+
+main {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 5rem;
+  /* sits above the backdrop layers (.theme and .blog-fab are already fixed) */
+  position: relative;
+  z-index: 1;
+}
+
+/* --- intro --- */
+
+h1::after {
+  content: '.';
+  color: var(--accent-2);
+  display: inline-block;
+  /* a slow pulse, so the page has a heartbeat even when nothing is happening */
+  animation: pulse 4s ease-in-out infinite 1s;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.9); }
+}
+
+h1 {
+  font-size: clamp(2.25rem, 8vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.tagline {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--accent-2) 75%, var(--muted));
+  margin: 0.9rem 0 0;
+}
+
+.blurb {
+  margin: 1.75rem 0 0;
+  max-width: 34rem;
+  color: var(--muted);
+}
+
+.blurb .hl { color: var(--accent-2); font-weight: 500; }
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+}
+
+.links a {
+  position: relative;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition: color 0.15s;
+}
+
+/* a coral rule sweeps across the grey one on hover */
+.links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--accent-2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.links a:hover::after { transform: scaleX(1); }
+
+.links a:hover { color: var(--accent-2); }
+
+/* --- sections --- */
+
+section { margin-top: 4.5rem; }
+
+/* the about copy follows straight on from the header links */
+.about { margin-top: 2.5rem; }
+
+h2::before {
+  content: '';
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 1px;
+  background: var(--accent-2);
+  margin-right: 0.6rem;
+  vertical-align: middle;
+}
+
+h2 {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-2) 30%, var(--rule));
+}
+
+.entries { list-style: none; margin: 0; padding: 0; }
+
+.entries > li + li {
+  margin-top: 2.25rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.what { font-size: 1rem; }
+.what strong { font-weight: 600; }
+
+.when {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.entries p {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.stack {
+  font-family: var(--mono);
+  font-size: 0.75rem !important;
+  color: var(--muted);
+  opacity: 0.75;
+  margin-top: 0.75rem !important;
+}
+
+/* --- skills --- */
+
+.skills { margin: 0; }
+
+.skills > div {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+
+.skills > div + div { border-top: 1px solid var(--rule); }
+
+dt {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding-top: 0.2rem;
+}
+
+dd { margin: 0; font-size: 0.9375rem; }
+
+/* --- footer --- */
+
+footer {
+  margin-top: 5rem;
+  padding-top: 1.75rem;
+  /* same tint as the rule under section headings */
+  border-top: 1px solid color-mix(in srgb, var(--accent-2) 30%, var(--rule));
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+footer a { color: var(--muted); }
+footer a:hover { color: var(--accent-2); }
+
+/* --- theme toggle --- */
+
+.theme {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme:hover { color: var(--accent-2); border-color: var(--accent-2); transform: rotate(180deg); }
+.theme:active { transform: rotate(180deg) scale(0.92); }
+
+/* --- entrance --- */
+
+.intro {
+  animation: rise 0.6s ease backwards;
+}
+
+/* sections fade up as they come into view — js adds .reveal, then .in.
+   without js they simply render, so nothing is ever stuck hidden. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.in { opacity: 1; transform: none; }
+
+/* photos in the gallery arrive one after another */
+.reveal .gallery figure {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.in .gallery figure { opacity: 1; transform: none; }
+.reveal.in .gallery figure:nth-child(2) { transition-delay: 0.1s; }
+.reveal.in .gallery figure:nth-child(3) { transition-delay: 0.2s; }
+
+/* the heading marker draws itself in */
+.reveal h2::before { transform: scale(0); transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) 0.15s; }
+.reveal.in h2::before { transform: scale(1); }
+
+/* the header lands in three beats — name, tagline, links — rather than at once */
+.intro h1 { animation: rise 0.6s ease backwards; animation-delay: 0.05s; }
+.intro .tagline { animation: rise 0.6s ease backwards; animation-delay: 0.18s; }
+.intro .links { animation: rise 0.6s ease backwards; animation-delay: 0.3s; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* --- breadcrumb / lede --- */
+
+.crumb {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--accent-2); }
+
+.lede {
+  margin: -0.75rem 0 1.5rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+kbd {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent-2);
+  border: 1px solid color-mix(in srgb, var(--accent-2) 40%, transparent);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--fg);
+}
+
+/* --- project links --- */
+
+.title-link { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.title-link:hover { color: var(--accent-2); border-color: var(--accent-2); }
+
+.projlinks {
+  display: flex;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.75rem !important;
+  margin-top: 0.75rem !important;
+}
+
+.projlinks a { color: var(--accent); text-decoration: none; }
+.projlinks a:hover { text-decoration: underline; }
+
+/* --- about --- */
+
+/* the prose intro — wider measure than .blurb, since it's the main read */
+.about p {
+  /* the gap between paragraphs has to beat the gap between lines, or the
+     block reads as one wall of text */
+  margin: 0 0 1.6rem;
+  max-width: 36rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.about p:last-child { margin-bottom: 0; }
+
+.about .hl { color: var(--accent-2); }
+
+.about a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.about a:hover { border-bottom-color: var(--accent); }
+
+/* a photo inside a blog post */
+.post-photo { margin: 1.5rem 0; }
+
+/* floated inside a paragraph, so the text wraps around it */
+.post-photo.float {
+  float: right;
+  width: 15rem;
+  max-width: 45%;
+  margin: 0.25rem 0 1rem 1.5rem;
+}
+
+@media (max-width: 34rem) {
+  .post-photo.float { float: none; width: 100%; max-width: none; margin: 1.25rem 0; }
+}
+
+.post-photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.post-photo img:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+
+.post-photo figcaption {
+  margin-top: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* biometric os has no url yet — it still reads like the links around it */
+.about .faux-link {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+/* the blog link is pinned bottom-right so it's reachable from anywhere on the page */
+.blog-fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 20;
+  padding: 0.6rem 1.15rem;
+  border: 1px solid var(--accent-2);
+  border-radius: 999px;
+  /* filled, not outlined — it should read as the one thing to click down here */
+  background: var(--accent-2);
+  color: var(--bg);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-2) 35%, transparent);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.blog-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--accent-2) 45%, transparent);
+}
+
+.blog-fab::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-2);
+  /* a ring drifts outward every few seconds, then rests */
+  animation: ripple 6s ease-out infinite 2s;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  0% { opacity: 0.55; transform: scale(1); }
+  35%, 100% { opacity: 0; transform: scale(1.35); }
+}
+
+.blog-btn-arrow { display: inline-block; transition: transform 0.15s ease; }
+.blog-fab:hover .blog-btn-arrow { transform: translateX(3px); }
+
+/* --- gallery --- */
+
+/* a little extra bottom space for the hover lift */
+.gallery-section { margin-top: 3.5rem; margin-bottom: 4rem; }
+
+/* between paragraphs: same measure as the prose, and even space either side
+   (the paragraph above already contributes its own 1.15rem bottom margin) */
+.about .gallery-section {
+  max-width: 36rem;
+  margin: 0.4rem 0 2rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.gallery figure {
+  margin: 0;
+  position: relative;
+  /* grow downward only — the intro copy sits directly above the gallery */
+  transform-origin: top center;
+  /* promote to its own layer so the scale is composited, not repainted */
+  will-change: transform;
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* hover lifts the photo above its neighbours instead of pushing them around */
+.gallery figure:hover,
+.gallery figure:focus-within {
+  transform: scale(1.06);
+  z-index: 3;
+}
+
+/* edge photos grow inward so they don't run off the page */
+.gallery figure:first-child { transform-origin: top left; }
+.gallery figure:last-child { transform-origin: top right; }
+
+/* placeholder box — replace the div with an <img> and this rule stops applying */
+.gallery .ph {
+  aspect-ratio: 3 / 2;
+  border: 1px dashed var(--rule);
+  border-radius: 6px;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 8px, var(--rule) 8px 9px);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+
+.gallery .ph::after { content: attr(data-label); }
+
+/* the photos open in the lightbox on click */
+.gallery img { cursor: pointer; }
+
+/* photos are 3:2 out of the camera — match it so nothing gets cropped away */
+.gallery img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery figure:hover img,
+.gallery figure:focus-within img {
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+
+.gallery figure:hover figcaption,
+.gallery figure:focus-within figcaption {
+  color: var(--accent-2);
+}
+
+/* --- lightbox --- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-content: center;
+  gap: 0.9rem;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.82);
+}
+
+.lightbox[hidden] { display: none; }
+
+.lightbox img {
+  max-width: min(70vw, 820px);
+  max-height: 66vh;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  cursor: default;
+}
+
+.lightbox-caption {
+  margin: 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: #d8d8d8;
+}
+
+/* flip through photos */
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, #fff 35%, transparent);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: #fff;
+}
+
+.lightbox-prev { left: 1.25rem; }
+.lightbox-next { right: 1.25rem; }
+
+.lightbox-prev:hover { transform: translateY(-50%) translateX(-2px); }
+.lightbox-next:hover { transform: translateY(-50%) translateX(2px); }
+
+.lightbox-prev[hidden],
+.lightbox-next[hidden],
+.lightbox-count[hidden] { display: none; }
+
+.lightbox-count {
+  margin: 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: #b9b9b9;
+}
+
+@media (max-width: 34rem) {
+  .lightbox-prev { left: 0.4rem; }
+  .lightbox-next { right: 0.4rem; }
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.gallery figcaption {
+  margin-top: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  transition: color 0.28s ease;
+}
+
+/* --- blog posts --- */
+
+.post { border-bottom: 1px solid var(--rule); }
+.post:first-of-type { border-top: 1px solid var(--rule); }
+
+.post-head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  background: none;
+  border: 0;
+  padding: 1.25rem 0;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+
+.post-title { font-size: 1rem; transition: color 0.15s; }
+.post-head:hover .post-title { color: var(--accent-2); }
+
+.post-title::before {
+  content: '+';
+  font-family: var(--mono);
+  color: var(--accent-2);
+  margin-right: 0.6rem;
+}
+
+.post.open .post-title::before { content: '–'; }
+
+/* the grid 0fr trick only collapses the first row, so a post with several
+   paragraphs leaked everything after the first one. clip the whole body instead. */
+.post-body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.post.open .post-body {
+  max-height: 200rem;
+  opacity: 1;
+}
+
+.post-body p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  max-width: 34rem;
+}
+
+.post.open .post-body p:first-child { margin-top: 0.25rem; }
+.post.open .post-body p:last-child { margin-bottom: 1.5rem; }
+
+/* --- terminal frame (game) --- */
+
+.term {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.term-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--rule); }
+.dot.r { background: #e06c5a; }
+.dot.y { background: #d9a84e; }
+.dot.g { background: #6fae72; }
+
+.term-head .dot { animation: blink 5s ease-in-out infinite; }
+.term-head .dot.y { animation-delay: 0.8s; }
+.term-head .dot.g { animation-delay: 1.6s; }
+
+@keyframes blink {
+  0%, 82%, 100% { opacity: 1; }
+  88% { opacity: 0.35; }
+}
+
+.term-title {
+  margin-left: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.term-body { padding: 0.85rem; }
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.hud b { color: var(--accent-2); font-weight: 500; }
+
+.stage { position: relative; }
+
+#invaders {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  outline: none;
+  touch-action: manipulation;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.4rem;
+  text-align: center;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  border-radius: 4px;
+}
+
+.overlay[hidden] { display: none; }
+
+.ov-title {
+  color: var(--accent-2);
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.ov-sub {
+  margin: 0 0 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  max-width: 22rem;
+}
+
+.btn {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  padding: 0.45rem 1.1rem;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btn:hover { border-color: var(--accent-2); color: var(--accent-2); }
+
+.btn.primary { border-color: var(--accent-2); color: var(--accent-2); }
+.btn.primary:hover { background: var(--accent-2); color: var(--bg); }
+
+@media (max-width: 34rem) {
+  main { padding-top: 5rem; }
+  .when { font-size: 0.7rem; }
+  .skills > div { grid-template-columns: 1fr; gap: 0.25rem; }
+  .gallery { grid-template-columns: 1fr; }
+  /* full-width photos can't grow much without leaving the screen */
+  .gallery-section { margin-bottom: 0; }
+  .gallery figure:hover,
+  .gallery figure:focus-within { transform: scale(1.03); }
+  .hud { gap: 0.9rem; }
+}

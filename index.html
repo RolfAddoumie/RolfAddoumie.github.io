@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rolf Addoumie</title>
+<meta name="description" content="Rolf Addoumie - portfolio">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23dc7150'>ra</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<button class="theme" id="theme" aria-label="toggle theme">◐</button>
+
+<!-- the blog follows you down the page -->
+<a class="blog-fab" href="blog.html">Blog<span class="blog-btn-arrow" aria-hidden="true"> →</span></a>
+
+<main>
+  <header class="intro">
+    <h1>Rolf Addoumie</h1>
+    <p class="tagline">Welcome to my site, enjoy your stay</p>
+    <nav class="links">
+      <a href="mailto:rolfaddoumie@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/rolfaddoumie" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="Rolf_Addoumie_SWE_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </header>
+
+  <!-- ============ about ============ -->
+  <section class="about">
+    <p>
+      Hi, I'm Rolf Addoumie, a Software Engineering student from Canada 🇨🇦. Previously, I've done a couple internships across engineering. Most recently, I was a full-stack
+      engineer at <a href="https://www.acephalt.com/" target="_blank" rel="noopener">Acephalt</a>, a startup where I helped build an AI-native due-diligence platform for VCs.
+      That experience taught me to wear a lot of hats: designing the frontend, speccing requirements with my PM, and working on backend logic.
+      This fall, I'm joining <a href="https://xsolla.com/sdk" target="_blank" rel="noopener">Xsolla</a>, where I'll be working on the payments
+      infrastructure behind studios like Roblox, Epic Games, and Valve.
+    </p>
+    <p>
+      I'm also a big believer in connecting the student community at my school. In my first year I started
+      <a href="https://www.sesa-aegl.ca/en" target="_blank" rel="noopener">SESA</a>, the Software Engineering Students' Association, and helped grow it into one of the bigger tech groups on campus; we've worked with companies like Microsoft, Amazon, and others. I also ran sponsorships for
+      <a href="https://www.uottahack.ca/" target="_blank" rel="noopener">uOttaHack</a>, one of Canada's largest hackathons. That involvement taught me more about leadership than any course did; I wrote about rebuilding SESA from zero
+      <a href="blog.html#sesa">in this post</a>.
+    </p>
+    <!-- ============ gallery ============
+         swap each <div class="ph"> for: <img src="images/your-photo.jpg" alt="...">
+         the figure/caption wrapper can stay as-is.                            -->
+    <div class="gallery-section">
+      <div class="gallery">
+        <figure>
+          <img src="images/uottahack-coinbase.jpeg" width="2048" height="1446" loading="lazy"
+               alt="five uottahack organizers posing with coinbase-branded hockey jerseys in front of the uottahack backdrop">
+          <figcaption>Coinbase sponsored us at uOttaHack!</figcaption>
+        </figure>
+        <figure>
+          <img src="images/sesa-warp-team.jpg" width="1600" height="1066" loading="lazy"
+               alt="the sesa team posing around a warp banner after the workshop">
+          <figcaption>The SESA exec team - aka the '95&ndash;96 Chicago Bulls</figcaption>
+        </figure>
+        <figure>
+          <img src="images/sesa-warp-room.jpg" width="1600" height="1066" loading="lazy"
+               alt="a full room of students applauding at the sesa x warp workshop">
+          <figcaption>A full room!</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p>
+      Outside of work and school, I'm really passionate about building
+      <a href="https://get-linkr.com" target="_blank" rel="noopener">Linkr</a>, a platform I co-founded that connects student orgs with corporate sponsors. The idea came up as I was leading sponsorship outreach at uOttaHack and SESA. In another project, I pulled the data from every health tracking sensor I own -
+      my Whoop, workout logging app, smart scale, and smart water bottle, and aggregated it into one dashboard that provides AI insights about my day to day health;
+      I called it <span class="faux-link">Biometric OS</span>, and I wrote about it
+      <a href="blog.html#biometric-os">here</a>.
+      If you're also entrepreneurial, or like to track your biometric
+      data, I'd love to chat :)
+    </p>
+    <p>
+      Feel free to reach out, and enjoy the site; if you get bored, there's a Space Invaders clone
+      just below :)
+    </p>
+  </section>
+
+  <!-- ============ space invaders ============ -->
+  <section>
+    <h2>Invaders</h2>
+    <p class="lede">Mandatory side quest. <kbd>←</kbd><kbd>→</kbd> to move, <kbd>space</kbd> to shoot, <kbd>p</kbd> to pause.</p>
+
+    <div class="term">
+      <div class="term-head">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">invaders.js</span>
+      </div>
+
+      <div class="term-body">
+        <div class="hud">
+          <span>Score <b id="iv-score">0000</b></span>
+          <span>Best <b id="iv-best">0000</b></span>
+          <span>Wave <b id="iv-wave">1</b></span>
+          <span>Form <b id="iv-formation">—</b></span>
+          <span>Lives <b id="iv-lives">▲▲▲</b></span>
+        </div>
+
+        <div class="stage">
+          <canvas id="invaders" width="480" height="360" tabindex="0"
+                  aria-label="space invaders game"></canvas>
+          <div id="iv-overlay" class="overlay">
+            <p class="ov-title" id="iv-title">Space Invaders</p>
+            <p class="ov-sub" id="iv-sub"></p>
+            <button id="iv-start" class="btn primary">Start</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Ottawa, Ontario · <a href="mailto:rolfaddoumie@gmail.com">rolfaddoumie@gmail.com</a></p>
+  </footer>
+</main>
+
+<!-- click a gallery photo to open it full-size here -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" type="button" aria-label="close">×</button>
+  <button class="lightbox-prev" type="button" aria-label="previous photo">‹</button>
+  <button class="lightbox-next" type="button" aria-label="next photo">›</button>
+  <img alt="">
+  <p class="lightbox-caption"></p>
+  <p class="lightbox-count"></p>
+</div>
+
+<script src="script.js"></script>
+<script src="invaders.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog — Rolf Addoumie</title>
+<meta name="description" content="notes on building, shipping, and student org chaos.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23dc7150'>ra</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<button class="theme" id="theme" aria-label="toggle theme">◐</button>
+
+<main>
+  <header class="intro">
+    <p class="crumb"><a href="index.html">← Rolf Addoumie</a></p>
+    <h1>Blog</h1>
+    <p class="tagline">Noting down my thoughts</p>
+    <p class="blurb">
+      things i figured out the hard way — shipping side projects, running a student org,
+      and the parts of internships nobody writes down.
+    </p>
+  </header>
+
+  <!-- ============ posts ============
+       to add a post: copy one <article class="post"> block, change the date,
+       title, and body. click-to-expand is handled by script.js.              -->
+  <section>
+    <h2>Posts</h2>
+
+    <article class="post" id="sesa">
+      <button class="post-head" aria-expanded="false">
+        <span class="post-title">Rebuilding SESA From Zero</span>
+        <span class="when">Jul 2025</span>
+      </button>
+      <div class="post-body">
+        <p>
+          When I started my degree, my program had no student association. The Software Engineering Students' Association existed on
+          paper but had been dormant since the pandemic, and a few earlier attempts to revive
+          it hadn't stuck. When I stepped in there was no team and nothing to build on, just a
+          couple of friends and me.
+        </p>
+        <p>
+          So we started from zero. We pulled together people who believed in the idea,
+          convinced the Faculty of Engineering to give us an office, and began reaching out to
+          companies willing to partner with us. The goal was simple: give software engineering
+          students real value through connection, technical growth, and community.
+        </p>
+        <p>
+          Within a semester we'd grown to 27 members across marketing, design, development,
+          academics, partnerships, and events. Over 300 students came to our events that first
+          term. We were sponsored by Warp and the National Bank of Canada, ran a study session
+          with Notion, and hosted workshops at cuHacking.
+        </p>
+        <!-- floated, so the paragraph below wraps around it -->
+        <figure class="post-photo float">
+          <img src="images/sesa-warp-talk.jpg" width="1600" height="1070" loading="lazy"
+               alt="rolf speaking into a mic beside the sesa intro slide at the sesa x warp workshop">
+          <figcaption>Opening one of our workshops, this one with Warp.</figcaption>
+        </figure>
+        <p>
+          Leading it meant being a bit of a Swiss Army knife: onboarding sponsors, designing
+          the logo and sponsorship package, helping build the website, keeping things running.
+          But the part that mattered most wasn't any of that. It was learning to rally people
+          around a shared vision and trusting the team to own their pieces. The best thing I
+          built wasn't the org, it was the group of people who could carry it forward.
+        </p>
+        <p>
+          That's the real test of this kind of work: building something that outlasts you. I
+          got to do it in my first year, but it was never a solo effort, and that's exactly the
+          point.
+        </p>
+      </div>
+    </article>
+
+    <article class="post" id="biometric-os">
+      <button class="post-head" aria-expanded="false">
+        <span class="post-title">Making data talk.</span>
+        <span class="when">Jan 2026</span>
+      </button>
+      <div class="post-body">
+        <p>
+          I had four apps each tracking one part of my health. Whoop tracked recovery, sleep,
+          and heart health, Hevy had all the sets I'd logged, my Withings smart scale tracked
+          my body composition, my smart water bottle had water intake. Four data trackers, but none of
+          them were talking.
+        </p>
+        <p>
+          Whoop told me that my heart rate variability was unusually high one morning and, like
+          always, offered no reason why. But I knew the reason: I hadn't had enough water the
+          day before. The data to explain the number existed, it was just sitting in a
+          different app that Whoop didn't have access to.
+        </p>
+        <p>
+          So I aggregated all that data into one dashboard. Now the answer was made available for the Whoop.
+        </p>
+        <p>
+          To make it better, I added AI insights. Instead of four dashboards I have to keep
+          track of, it reads across all of them and tells me what's actually going on: that my
+          bad HRV followed a dry day, that a stall on the scale in my lean body mass lined up with a stretch of overloaded training weeks . A short plain language read every morning, based on data no single
+          app could see alone.
+        </p>
+        <p>
+          That's the power of data. The answer was never missing, it was just in the wrong
+          place.
+        </p>
+      </div>
+    </article>
+
+  </section>
+
+  <footer>
+    <p><a href="index.html">← Back home</a> · <a href="mailto:rolfaddoumie@gmail.com">rolfaddoumie@gmail.com</a></p>
+  </footer>
+</main>
+
+<!-- click a photo to open it full-size here -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" type="button" aria-label="close">×</button>
+  <img alt="">
+  <p class="lightbox-caption"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
