@@ -1,34 +1,27 @@
 /* palette: cool ink + paper, with a teal primary and a coral secondary.
-   --accent is for links and interactive things, --accent-2 for emphasis. */
+   --accent is for links and interactive things, --accent-2 for emphasis.
+   dark is the default; light only applies when the toggle asks for it. */
 :root {
-  --bg: #eceee6;
-  --fg: #0d1013;
-  --muted: #54585e;
-  --rule: #e0ddd4;
-  --accent: #1d7a63;
-  --accent-2: #dc7150;
-  --sans: ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, sans-serif;
-  --mono: ui-monospace, "SF Mono", Menlo, monospace;
-}
-
-:root[data-theme="dark"] {
   --bg: #0d1513;
   --fg: #f0f4f2;
   --muted: #a6b1ab;
   --rule: #212b2e;
   --accent: #4fcfa5;
   --accent-2: #f7a183;
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  /* scrollbars and form controls follow the page, not the OS */
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0d1513;
-    --fg: #f0f4f2;
-    --muted: #a6b1ab;
-    --rule: #212b2e;
-    --accent: #4fcfa5;
-    --accent-2: #f7a183;
-  }
+:root[data-theme="light"] {
+  --bg: #eceee6;
+  --fg: #0d1013;
+  --muted: #54585e;
+  --rule: #e0ddd4;
+  --accent: #1d7a63;
+  --accent-2: #dc7150;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }

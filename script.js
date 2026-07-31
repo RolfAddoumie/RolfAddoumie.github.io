@@ -6,8 +6,8 @@ const saved = localStorage.getItem('theme');
 if (saved) root.setAttribute('data-theme', saved);
 
 btn.addEventListener('click', () => {
-  const current = root.getAttribute('data-theme')
-    || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  // the page is dark unless the visitor has switched it
+  const current = root.getAttribute('data-theme') || 'dark';
   const next = current === 'dark' ? 'light' : 'dark';
   root.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
