@@ -1,3 +1,17 @@
+// --- analytics: count resume opens ---
+// GA4's enhanced measurement usually catches pdf clicks on its own, but this
+// sends an explicit event so the number doesn't depend on that setting.
+document.querySelectorAll('a[href$=".pdf"]').forEach((link) => {
+  link.addEventListener('click', () => {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'resume_click', {
+      link_url: link.href,
+      link_text: link.textContent.trim(),
+      page: location.pathname,
+    });
+  });
+});
+
 // --- theme toggle ---
 const root = document.documentElement;
 const btn = document.getElementById('theme');
