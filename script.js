@@ -17,6 +17,8 @@ const trackClick = (selector, eventName) => {
 trackClick('a[href$=".pdf"]', 'resume_click');
 trackClick('a[href^="mailto:"]', 'email_click');
 trackClick('a[href*="linkedin.com"]', 'linkedin_click');
+// the pinned button and any in-text link to the blog
+trackClick('a[href^="blog.html"]', 'blog_click');
 
 // --- theme toggle ---
 const root = document.documentElement;
