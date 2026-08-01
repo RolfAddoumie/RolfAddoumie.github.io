@@ -1,6 +1,9 @@
 // --- analytics: count clicks on the contact links ---
 // GA4 enhanced measurement catches some of these on its own, but these are
 // explicit so the numbers don't depend on that setting being left on.
+// add ?debug=1 to any url to make these events show in GA4's DebugView
+const gaDebug = new URLSearchParams(location.search).has('debug');
+
 const trackClick = (selector, eventName) => {
   document.querySelectorAll(selector).forEach((link) => {
     link.addEventListener('click', (e) => {
@@ -27,6 +30,7 @@ const trackClick = (selector, eventName) => {
         link_text: link.textContent.trim(),
         page: location.pathname,
         transport_type: 'beacon',
+        debug_mode: gaDebug,
         event_callback: go,
       });
 
