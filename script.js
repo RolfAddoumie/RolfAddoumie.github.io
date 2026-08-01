@@ -3,13 +3,34 @@
 // explicit so the numbers don't depend on that setting being left on.
 const trackClick = (selector, eventName) => {
   document.querySelectorAll(selector).forEach((link) => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
       if (typeof gtag !== 'function') return;
+
+      // a link that navigates this tab can kill the request before it leaves.
+      // hold the navigation until gtag calls back (or 400ms, whichever first).
+      const leavesPage =
+        link.target !== '_blank' &&
+        !link.href.startsWith('mailto:') &&
+        !e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0;
+
+      let done = false;
+      const go = () => {
+        if (done) return;
+        done = true;
+        if (leavesPage) location.href = link.href;
+      };
+
+      if (leavesPage) e.preventDefault();
+
       gtag('event', eventName, {
         link_url: link.href,
         link_text: link.textContent.trim(),
         page: location.pathname,
+        transport_type: 'beacon',
+        event_callback: go,
       });
+
+      setTimeout(go, 400);
     });
   });
 };
