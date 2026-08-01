@@ -1,16 +1,22 @@
-// --- analytics: count resume opens ---
-// GA4's enhanced measurement usually catches pdf clicks on its own, but this
-// sends an explicit event so the number doesn't depend on that setting.
-document.querySelectorAll('a[href$=".pdf"]').forEach((link) => {
-  link.addEventListener('click', () => {
-    if (typeof gtag !== 'function') return;
-    gtag('event', 'resume_click', {
-      link_url: link.href,
-      link_text: link.textContent.trim(),
-      page: location.pathname,
+// --- analytics: count clicks on the contact links ---
+// GA4 enhanced measurement catches some of these on its own, but these are
+// explicit so the numbers don't depend on that setting being left on.
+const trackClick = (selector, eventName) => {
+  document.querySelectorAll(selector).forEach((link) => {
+    link.addEventListener('click', () => {
+      if (typeof gtag !== 'function') return;
+      gtag('event', eventName, {
+        link_url: link.href,
+        link_text: link.textContent.trim(),
+        page: location.pathname,
+      });
     });
   });
-});
+};
+
+trackClick('a[href$=".pdf"]', 'resume_click');
+trackClick('a[href^="mailto:"]', 'email_click');
+trackClick('a[href*="linkedin.com"]', 'linkedin_click');
 
 // --- theme toggle ---
 const root = document.documentElement;
