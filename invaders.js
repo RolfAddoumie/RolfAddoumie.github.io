@@ -287,8 +287,8 @@
 
   function render(t) {
     const fg = css('--fg') || '#111';
-    const accent = css('--accent') || '#146b58';
-    const accent2 = css('--accent-2') || '#a2622e';
+    const accent = css('--accent') || '#73e8ff';
+    const accent2 = css('--accent-2') || '#917aff';
     const muted = css('--muted') || '#888';
 
     ctx.clearRect(0, 0, W, H);
